@@ -20,6 +20,7 @@ function addTask() {
             data: taskToAdd,
         }).then(function(response) {
             console.log('response from server', response);
+            appendTask();
         }).catch(function(error) {
             console.log('error in POST', error);
             alert('unable to add a task at this time');
@@ -27,6 +28,13 @@ function addTask() {
 
 }
 
-// function addTask(taskToAdd) {
-    
-// }
+function appendTask() {
+    $.ajax({
+        type: 'GET',
+        url: '/tasks',
+    }).then(function(response) {
+        console.log('response from server', response);
+    }).catch(function(error) {
+        console.log('error in GET', error);
+    });
+}
