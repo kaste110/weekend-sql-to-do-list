@@ -63,3 +63,11 @@ For each of your strech goals, you will be practicing git branching. Please refe
 - `feature-time-completed` 
 
     - [ ]  Add the ability to record when a task was completed. Show the completed date on the frontend in a pretty format.
+
+
+
+- [x] Add all necessary files to be used for the project
+- [x] Create html boilerplate, link client.js, jquery, css files
+- [x] Set up client.js to communicate with jquery
+- [x] Set up server.js with required dependencies and listen to the PORT
+- [x] Set up router.js with pg and link to database
