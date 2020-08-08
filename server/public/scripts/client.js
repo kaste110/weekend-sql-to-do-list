@@ -9,7 +9,7 @@ function onReady() {
 function addTask() {
     console.log('addTask button clicked'); //works
     let taskToAdd = { // change input field value into object literal
-        task: $('#newTask').val(),
+        taskInfo: $('#newTask').val(),
         complete: "FALSE",
     };
     console.log(taskToAdd); //works
@@ -34,7 +34,23 @@ function appendTask() {
         url: '/tasks',
     }).then(function(response) {
         console.log('response from server', response);
+        appendTasks(response);
     }).catch(function(error) {
         console.log('error in GET', error);
     });
+
+}
+
+function appendTasks(tasks) {
+    $('#toDoList').empty();
+
+    for(let i = 0; i < tasks.length; i++) {
+        let task = tasks[i];
+        console.log(task.taskInfo);
+        let $tr = $(`<tr data-task-id="${task.id}"></tr>`);
+        $tr.data('task', task);
+        $tr.append(`<td>${task.taskInfo}</td>`);
+        $tr.append(`<td>${task.complete}</td>`);
+        $('#toDoList').append($tr);
+    };
 }

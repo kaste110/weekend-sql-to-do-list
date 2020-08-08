@@ -7,9 +7,9 @@ router.post('/', (req, res) => {
     let newTask = req.body;
     console.log('adding new task', newTask);
     
-    let queryText = `INSERT INTO "tasks" ("task", "complete") VALUES ($1, $2);`;
+    let queryText = `INSERT INTO "tasks" ("taskInfo", "complete") VALUES ($1, $2);`;
 
-    pool.query(queryText, [newTask.task, newTask.complete])
+    pool.query(queryText, [newTask.taskInfo, newTask.complete])
         .then(result => {
             console.log(result);
             res.sendStatus(201);
