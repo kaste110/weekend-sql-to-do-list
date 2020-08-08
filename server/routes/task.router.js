@@ -30,6 +30,18 @@ router.get('/', (req, res) => {
     });
 })
 
+router.delete('/:id', (req, res) => {
+    let taskId = req.params.id;
+    console.log(`task with ID of ${taskId} will be deleted from database`);
+    let queryText = `DELETE FROM "tasks" WHERE "id" = $1;`
+    pool.query(queryText, [taskId]).then((response) => {
+        console.log(response);
+        res.sendStatus(200);
+    }).catch((error) => {
+        console.log('error in DELETE', error);
+        res.sendStatus(500);
+    });
+});
 
 
 

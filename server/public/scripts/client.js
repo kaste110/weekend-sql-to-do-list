@@ -4,6 +4,8 @@ $(document).ready(onReady);
 function onReady() {
     console.log('jquery is working');
     $('#addTaskBtn').on('click', addTask); // jquery to read add button on click
+    $('#toDoList').on('click', '.deleteBtn', deleteTask);
+    getTasks();
 }
 
 function addTask() {
@@ -20,7 +22,7 @@ function addTask() {
             data: taskToAdd,
         }).then(function(response) {
             console.log('response from server', response);
-            appendTask();
+            getTasks();
         }).catch(function(error) {
             console.log('error in POST', error);
             alert('unable to add a task at this time');
@@ -28,7 +30,7 @@ function addTask() {
 
 }
 
-function appendTask() {
+function getTasks() {
     $.ajax({
         type: 'GET',
         url: '/tasks',
@@ -51,6 +53,26 @@ function appendTasks(tasks) {
         $tr.data('task', task);
         $tr.append(`<td>${task.taskInfo}</td>`);
         $tr.append(`<td>${task.complete}</td>`);
+        $tr.append(`
+        <td>
+            <button class="deleteBtn">DELETE</button>
+        </td>`
+        );
         $('#toDoList').append($tr);
     };
+}
+
+function deleteTask() {
+    console.log('delete click works');
+    let taskToDelete = $(this).closest('tr').data('task-id');
+    $.ajax({
+       type: 'DELETE',
+       url: `/tasks/${taskToDelete}`, 
+    }).then(function(response) {
+        console.log('response from server/delete', response)
+        getTasks();
+    }).catch(function(error) {
+        console.log('error in DELETE', error);
+        alert('Unable to delete entry. Please try again later');
+    });
 }
