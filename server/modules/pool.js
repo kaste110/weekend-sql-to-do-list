@@ -1,7 +1,7 @@
 const pg = require('pg'); //require postgres
 
 const config = { //set the postgres database and where to listen
-    database: 'weekend-to-do-list',
+    database: 'weekend-to-do-app',
     host: 'localhost',
     port: 5432,
 };
