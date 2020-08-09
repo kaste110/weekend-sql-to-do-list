@@ -5,6 +5,7 @@ function onReady() {
     console.log('jquery is working');
     $('#addTaskBtn').on('click', handleClick); // jquery to read add button on click
     $('#toDoList').on('click', '.deleteBtn', deleteTask);
+    $('#toDoList').on('change', '.taskCompleteBox', toggleTaskComplete);
     getTasks();
 }
 
@@ -75,10 +76,30 @@ function appendTasks(tasks) {
             <button class="deleteBtn">DELETE</button>
         </td>`
         );
-        $('#toDoList').append($tr);
-        
-        
+        $('#toDoList').append($tr); 
     };
+}
+
+function toggleTaskComplete() {
+    let completedTaskId = $(this).closest('tr').data('task-id');
+    console.log('box checked, task id is', completedTaskId);
+    let isTaskComplete = {};
+
+    if($(this).is(':checked')) {
+        isTaskComplete.complete = true;
+    } else if(!$(this).is(':checked')) {
+        isTaskComplete.complete = false;
+    };
+    $.ajax({
+        method: 'PUT',
+        url: `/tasks/${completedTaskId}`,
+        data: isTaskComplete
+    }).then(function(result) {
+        console.log('task is ready to complete', result);
+        getTasks();
+    }).catch(function(error) {
+        console.log('error in client from PUT request', error);
+    });
 }
 
 function deleteTask() {

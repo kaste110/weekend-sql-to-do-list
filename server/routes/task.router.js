@@ -43,6 +43,21 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+    //let completeTask = req.body;
+    let completeTaskId = req.params.id;
+    console.log(`task with id of ${completeTaskId} is done and ready to be marked complete`);
+    let queryText = `UPDATE "tasks" SET "complete" = $2 WHERE "id" = $1;`
+
+    pool.query(queryText, [completeTaskId, req.body.complete]).then((response) => {
+        console.log('task is complete!');
+        res.sendStatus(200);
+    }).catch((error) => {
+        console.log('error, task cannot be completed', error);
+        res.sendStatus(500);
+    });
+})
+
 
 
 
