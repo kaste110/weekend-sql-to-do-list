@@ -63,14 +63,14 @@ function appendTasks(tasks) {
         $tr.append(`<td>${task.taskInfo}</td>`);
         //$tr.append(`<td>${task.complete}</td>`);
         if (task.complete === true){
-            $tr.append(`<td align="center"><input class="taskCompleteBox" type="checkbox" "checked"="checked"></td>`);
+            $tr.append(`<td align="center"><input type="checkbox" class="taskCompleteBox" "checked"="checked"></td>`);
                 // type: "checkbox",
                 // "checked":"checked",
                 // class: "taskCompleteBox"
             //$(this).closest('tr').toggleClass("taskCompletedBox");
         } else if (task.complete === false){
         $tr.append(`<td align="center"><input class="taskCompleteBox" type="checkbox"></td>`);
-        };
+       };
         $tr.append(`
         <td>
             <button class="deleteBtn">DELETE</button>
