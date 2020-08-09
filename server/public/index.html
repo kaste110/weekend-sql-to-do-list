@@ -10,23 +10,23 @@
     <title>Weekend To-Do List</title>
 </head>
 <body>
-<header>
+<header class="weekendTasks">
     <h1>Weekend To-Do List</h1>
 </header>
 <main>
-    <section>
+    <section id="addTasks">
         <h2>Add New Task</h2>
-        <label>Need to:</label><input type="text" name="" value="" id="newTask" size="50">
+        <label>Need to:</label><input type="text" name="" value="" id="newTask" size="40">
         <button type="button" id="addTaskBtn">Add To List</button>
     </section>
     <section>
-        <div>
+        <div class="toDo">
             <h2>To-Do List</h2>
-            <table>
+            <table id="tasksTable">
                 <thead>
                     <tr>
                         <th>Tasks</th>
-                        <th>Completed?</th>
+                        <th>Complete</th>
                     </tr>
                 </thead>
                 <tbody id="toDoList">

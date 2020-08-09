@@ -13,7 +13,7 @@ function handleClick() {
     console.log('addTask button clicked'); //works
     let task = { // change input field value into object literal
         taskInfo: $('#newTask').val(),
-        complete: "FALSE",
+        //complete: "FALSE",
     };
     console.log(task); //works
     
@@ -58,18 +58,18 @@ function appendTasks(tasks) {
     for(let i = 0; i < tasks.length; i++) {
         let task = tasks[i];
         console.log(task.taskInfo);
-        let $tr = $(`<tr data-task-id="${task.id}"></tr>`);
+        let $tr = $(`<tr class="addTableBorders" data-task-id="${task.id}"></tr>`);
         $tr.data('task', task);
         $tr.append(`<td>${task.taskInfo}</td>`);
-        $tr.append(`<td>${task.complete}</td>`);
+        //$tr.append(`<td>${task.complete}</td>`);
         if (task.complete === true){
-            $('<input>', {
-                type: "checkbox",
-                "checked":"checked",
-                class: "taskCompleteBox"
-            }).appendTo($tr);
+            $tr.append(`<td align="center"><input class="taskCompleteBox" type="checkbox" "checked"="checked"></td>`);
+                // type: "checkbox",
+                // "checked":"checked",
+                // class: "taskCompleteBox"
+            //$(this).closest('tr').toggleClass("taskCompletedBox");
         } else if (task.complete === false){
-            $tr.append(`<td><input class="taskCompleteBox" type="checkbox"></td>`);
+        $tr.append(`<td align="center"><input class="taskCompleteBox" type="checkbox"></td>`);
         };
         $tr.append(`
         <td>
@@ -87,6 +87,7 @@ function toggleTaskComplete() {
 
     if($(this).is(':checked')) {
         isTaskComplete.complete = true;
+        $(this).closest('tr').toggleClass("taskCompletedBox");
     } else if(!$(this).is(':checked')) {
         isTaskComplete.complete = false;
     };
@@ -96,10 +97,12 @@ function toggleTaskComplete() {
         data: isTaskComplete
     }).then(function(result) {
         console.log('task is ready to complete', result);
-        getTasks();
+        //getTasks();
     }).catch(function(error) {
         console.log('error in client from PUT request', error);
     });
+    
+    
 }
 
 function deleteTask() {
