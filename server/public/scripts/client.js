@@ -3,18 +3,23 @@ $(document).ready(onReady);
 
 function onReady() {
     console.log('jquery is working');
-    $('#addTaskBtn').on('click', addTask); // jquery to read add button on click
+    $('#addTaskBtn').on('click', handleClick); // jquery to read add button on click
     $('#toDoList').on('click', '.deleteBtn', deleteTask);
     getTasks();
 }
 
-function addTask() {
+function handleClick() {
     console.log('addTask button clicked'); //works
-    let taskToAdd = { // change input field value into object literal
+    let task = { // change input field value into object literal
         taskInfo: $('#newTask').val(),
         complete: "FALSE",
     };
-    console.log(taskToAdd); //works
+    console.log(task); //works
+    
+    addTask(task);
+}
+
+function addTask(taskToAdd) {
 
     $.ajax({
             type: 'POST',
@@ -28,7 +33,10 @@ function addTask() {
             alert('unable to add a task at this time');
         });
 
+    $('#newTask').val('');
 }
+
+
 
 function getTasks() {
     $.ajax({
@@ -53,12 +61,23 @@ function appendTasks(tasks) {
         $tr.data('task', task);
         $tr.append(`<td>${task.taskInfo}</td>`);
         $tr.append(`<td>${task.complete}</td>`);
+        if (task.complete === true){
+            $('<input>', {
+                type: "checkbox",
+                "checked":"checked",
+                class: "taskCompleteBox"
+            }).appendTo($tr);
+        } else if (task.complete === false){
+            $tr.append(`<td><input class="taskCompleteBox" type="checkbox"></td>`);
+        };
         $tr.append(`
         <td>
             <button class="deleteBtn">DELETE</button>
         </td>`
         );
         $('#toDoList').append($tr);
+        
+        
     };
 }
 
